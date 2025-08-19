@@ -1,12 +1,12 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-const dashboard = () => {
+const chatbot = () => {
   return (
     <View>
-      <Text>dashboard</Text>
+      <Text>chatbot</Text>
     </View>
   )
 }
 
-export default dashboard
+export default chatbot

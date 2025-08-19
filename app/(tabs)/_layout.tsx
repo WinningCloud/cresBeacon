@@ -1,17 +1,19 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Image, Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const ICON_SIZE = 30;
 
   return (
+
+    
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -20,24 +22,80 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+            position: 'absolute', // blur effect on iOS
           },
-          default: {},
+           default: {
+        height: 100, // 👈 for Android
+        paddingBottom: 8,
+        paddingTop: 8,
+
+      },
         }),
-      }}>
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontFamily: 'SpaceMono',
+        },
+
+        tabBarIconStyle:{
+                marginTop:14 // Adjust icon position
+        }
+      }}
+    >
       <Tabs.Screen
-        name="index"
+  name="index"
+  options={{
+    title: "Dashboard",
+    tabBarIcon: ({ color, size }) => (
+      <Image
+        source={require("../../assets/images/dashboardIcon.png")}
+        style={{ tintColor: color, width: ICON_SIZE, height: size }}
+        resizeMode="contain"
+      />
+    ),
+  }}
+/>
+
+      <Tabs.Screen
+        name="alerts"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Alerts',
+          tabBarIcon: ({ color, size }) => (
+      <Image
+        source={require("../../assets/images/alertIcon.png")}
+        style={{ tintColor: color, width: ICON_SIZE, height: size }}
+        resizeMode="contain"
+      />
+    ),
         }}
       />
+
       <Tabs.Screen
-        name="explore"
+        name="chatbot"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Chatbot',
+         tabBarIcon: ({ color, size }) => (
+      <Image
+        source={require("../../assets/images/chatbotIcon.png")}
+        style={{ tintColor: color, width: ICON_SIZE, height: size }}
+        resizeMode="contain"
+      />
+    ),
+        }}
+      />
+
+   
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+         tabBarIcon: ({ color, size }) => (
+      <Image
+        source={require("../../assets/images/profileIcon.png")}
+        style={{ tintColor: color, width: ICON_SIZE, height: size }}
+        resizeMode="contain"
+      />
+    ),
         }}
       />
     </Tabs>
